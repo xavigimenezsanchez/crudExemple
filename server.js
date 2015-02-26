@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
-app.enable('trust proxy');
+app.enable('trust proxy', 'loopback');
 var https = require("https");
 var fs = require("fs");
 //var url = require("url");
