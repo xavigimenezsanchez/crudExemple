@@ -1,0 +1,16 @@
+    <div class="container">
+        <h1>Darrers Missatges</h1>
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="missatge in missatges | orderBy:'-date'"> 
+                    
+                    <strong>{{missatge.username}}</strong>
+                    <p>{{missatge.body}}</p>
+                    <a ng-show="missatge.username ==currentUser.username" ng-click="esborrarMissatge(missatge)" href="#" class="btn btn-danger btn-xs">Esborrar</a>
+                </li>
+            </ul>
+            
+        </div>
+        
+        
+    </div>
