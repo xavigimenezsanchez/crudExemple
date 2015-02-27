@@ -31,4 +31,11 @@ router.delete('/:id',function(req,res,next) {
         res.status(202).json({"missatge":"missatge esborrat"});
     });
 });
+
+router.put('/',function(req,res,next) {
+    Missatge.findByIdAndUpdate(req.body._id,req.body, function(err) {
+        if (err) return next(err);
+        res.status(201).json({"missatge": "Missatge modificat"});
+    });
+});
 module.exports = router;

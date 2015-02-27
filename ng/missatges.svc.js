@@ -10,4 +10,10 @@ angular.module('appLearn')
             console.log(id);
             return $http.delete("/api/missatges/"+id);
         };
+        this.edit = function(missatge){
+            this.missatgeToEdit = missatge;
+        };
+        this.put = function(missatge) {
+            return $http.put("/api/missatges", missatge);
+        };
     });

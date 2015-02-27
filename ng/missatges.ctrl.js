@@ -13,6 +13,11 @@ angular.module('appLearn')
         $scope.esborrarMissatge = function(missatge) {
             MissatgesService.delete(missatge._id).success(function() {
                     $location.path('/');
-                });;
+                });
+        };
+        $scope.editarMissatge = function(missatge) {
+            console.log(missatge);
+            MissatgesService.edit(missatge);
+            $location.path('/editarmissatge');
         };
     });

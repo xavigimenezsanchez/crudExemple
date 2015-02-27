@@ -24,8 +24,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="/#/">Missatges <span class="sr-only">(current)</span></a></li>
-        <li><a href="/#/registre">Registre</a></li>
-        <li><a href="/#/login">Login</a></li>
+        <li ng-if="currentUser"><a href="/#/noumissatge">Crea Missatge</a></li>
+        <li><a  ng-if="!currentUser" href="/#/registre">Registre</a></li>
+        <li><a ng-if="!currentUser" href="/#/login">Login</a></li>
       </ul>
 
       <ul ng-if="currentUser" class="nav navbar-nav navbar-right">

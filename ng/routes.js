@@ -3,18 +3,39 @@ angular.module('appLearn')
         $routeProvider
             .when("/", {
                 controller: 'MissatgesController',
-                templateUrl: 'missatges.html'
+                templateUrl: 'missatges.html',
+                autoritzat: false
             })
             .when("/noumissatge", {
                 controller: "NouMissatgeController",
-                templateUrl: 'nouMissatge.html'
+                templateUrl: 'nouMissatge.html',
+                autoritzat: true
+            })
+            .when("/editarmissatge", {
+                controller: "EditarMissatgeController",
+                templateUrl: 'editarMissatge.html',
+                autoritzat: true
             })
             .when("/registre", {
                 controller: "RegisterController",
-                templateUrl: "register.html"
+                templateUrl: "register.html",
+                autoritzat: false
             })
             .when("/login", {
                 controller: "LoginController",
-                templateUrl: "login.html"
+                templateUrl: "login.html",
+                autoritzat: false
+            })
+            .when("/registre", {
+                controller: "RegistreController",
+                templateUrl: "registre.html",
+                autoritzat: false
             });
+    })
+    .run(function($rootScope,UserSvc) {
+        $rootScope.$on('$routeChangeStart', function(event, next) {
+           if (next)
+                if (!UserSvc.auth & next.autoritzat) 
+                    event.preventDefault();
+        });
     });
