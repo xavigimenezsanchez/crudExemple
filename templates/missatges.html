@@ -6,7 +6,7 @@
                     
                     <strong>{{missatge.username}}</strong>
                     <p>{{missatge.body}}</p>
-                    <a ng-show="missatge.username ==currentUser.username" ng-click="esborrarMissatge(missatge)" href="#" class="btn btn-danger btn-xs">Esborrar</a>
+                    <a ng-show="missatge.username ==currentUser.username || currentUser.username =='xavi'" ng-click="esborrarMissatge(missatge)" href="#" class="btn btn-danger btn-xs">Esborrar</a>
                     <a ng-show="missatge.username ==currentUser.username" ng-click="editarMissatge(missatge)" class="btn btn-danger btn-xs">Editar</a>
                 </li>
             </ul>

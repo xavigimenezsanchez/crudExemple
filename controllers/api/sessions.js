@@ -10,10 +10,10 @@ router.post('/', function(req,res, next) {
             .select('username')
             .exec(function(err,user) {
                 if (err) return next(err);
-                if (!user) return res.status(401).json({"missatge": "user doesn't exits"});
+                if (!user) return res.status(401).json({"missatge": "usuari no existeix"});
                 bcrypt.compare(req.body.password, user.password, function(err, valid) {
                     if (err) return next(err);
-                    if (!valid) return res.status(401).json({"missatge": "password invalid"});
+                    if (!valid) return res.status(401).json({"missatge": "contrasenya o usuari invàlid"});
                     var token = jwt.encode({username:user.username}, config.secret);
                     res.status(201).send(token);
                 });

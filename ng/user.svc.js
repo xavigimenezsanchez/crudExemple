@@ -5,27 +5,23 @@ angular.module('appLearn')
         svc.getUser = function() {
             return $http.get('/api/users');
         };
-        svc.login = function (username, password) {
+        svc.login = function (username, password,noLogin) {
             return $http.post('/api/sessions', {
                 username: username,
                 password: password
-            }).then(function(val) {
-                svc.token = val.data;
-                $http.defaults.headers.common['x-auth'] = val.data;
-                if (val.data) svc.auth = true;
-                return svc.getUser();
+            }).success(function(data,status) {
+                svc.token = data;
+                $http.defaults.headers.common['x-auth'] = data;
+                if (data) svc.auth = true;
+            }).error(function(error,status){
+                noLogin(error, status);
             });
         };
         svc.registre = function(username,password){
             return $http.post('/api/users', {
                 username: username,
                 password: password
-            }).then(function(val) {
-                svc.token = val.data;
-                $http.defaults.headers.common['x-auth'] = val.data;
-                if (val.data) svc.auth = true;
-                return svc.getUser();
-            })
+            });
         };
         svc.logOut = function() {
             svc.auth = false;

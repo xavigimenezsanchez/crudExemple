@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
-            <form ng-submit="registre(username,password)">
+            <form ng-submit="registre(username,password,password2)">
                 <div class="form-group">
                     <label for="usuari">Usuari</label>
                     <input type="text" class="form-control" ng-model="username" id="usuari">
@@ -12,9 +12,12 @@
                 </div>
                 <div class="form-group">
                     <label for="contrasenya2">Contrasenya</label>
-                    <input type="password222" class="form-control" ng-model="password">
+                    <input type="password" class="form-control" ng-model="password2">
                 </div>
-                <input type="submit" class="btn btn-success btn-lg btn-block" value="Registre" >
+                <div  ng-if="error" class="alert alert-danger">
+                  <strong>{{error}}</strong>
+                </div>
+                <input  type="submit" class="btn btn-success btn-lg btn-block" value="Registre" >
             </form>        
         </div>
     </div>

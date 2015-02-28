@@ -15,15 +15,24 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    var user = new User({username: req.body.username});
-    bcrypt.hash(req.body.password, 11, function(err, hash) {
+    /* Primer cerquem l'usuari a la mongo */
+    User.findOne({username:req.body.username}, function(err, user) {
         if (err) return next(err);
-        user.password = hash;
-        user.save(function(err) {
-            if (err) return next(err);
-            res.status(201).json({"missatge": "user auth"});
-        });
+        if  (user) {
+            res.status(409).json({"missatge":"l'usuari ja existeix"});
+        } else {
+                var nouUser = new User({username: req.body.username});
+                bcrypt.hash(req.body.password, 11, function(err, hash) {
+                    if (err) return next(err);
+                    nouUser.password = hash;
+                    nouUser.save(function(err) {
+                        if (err) return next(err);
+                        res.status(201).json({"missatge": "user auth"});
+                    });
+                });
+        }
     });
+
 });
 
 module.exports = router;

@@ -1,22 +1,20 @@
 angular.module('appLearn')
-    .controller('MissatgesController',function($scope,$location,MissatgesService) {
+    .controller('MissatgesController',function($scope,$route,$location,MissatgesService) {
         //$scope.missatgeBody="holaaaa";
         MissatgesService.fetch()
         .success(function(missatges){
             $scope.missatges = missatges;
-        })
-        .error(function(e){
-            console.log(e);
         });
 
       
         $scope.esborrarMissatge = function(missatge) {
             MissatgesService.delete(missatge._id).success(function() {
-                    $location.path('/');
+                   // $location.path('/');
+                   $route.reload();
+                    console.log('hola');
                 });
         };
         $scope.editarMissatge = function(missatge) {
-            console.log(missatge);
             MissatgesService.edit(missatge);
             $location.path('/editarmissatge');
         };
