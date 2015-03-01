@@ -1,5 +1,5 @@
 angular.module('appLearn')
-    .config(function($routeProvider) {
+    .config(function($routeProvider, $locationProvider) {
         $routeProvider
             .when("/", {
                 controller: 'MissatgesController',
@@ -31,6 +31,11 @@ angular.module('appLearn')
                 templateUrl: "registre.html",
                 autoritzat: false
             });
+            
+            $locationProvider.html5Mode({
+                          enabled: true,
+                          requireBase: false
+                        });
     })
     .run(function($rootScope,UserSvc) {
         $rootScope.$on('$routeChangeStart', function(event, next) {
