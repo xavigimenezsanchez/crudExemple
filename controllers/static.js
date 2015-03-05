@@ -7,7 +7,6 @@ var options = {
 router.use(express.static(__dirname+"/../assets"));
 router.use(express.static(__dirname+"/../templates"));
 router.get('/', function(req, res, next) {
-    console.log("***************************************");
     res.sendFile("app.html", options);
 });
 

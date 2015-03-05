@@ -5,8 +5,7 @@ var User = require("../../models/users");
 var config = require("../../config");
 
 router.get('/', function(req, res, next) {
-    if (!req.headers['x-auth']) return res.status(401).json({"missatge": "error auth"});
-    console.log(req.headers['x-auth']);
+    if (!req.headers['x-auth']) return res.status(401).json({"missatge": "Error autenticació"});
     var auth = jwt.decode(req.headers['x-auth'], config.secret);
     User.findOne({username: auth.username}, function(err,user) {
         if (err) return next(err);
@@ -27,7 +26,7 @@ router.post('/', function(req, res, next) {
                     nouUser.password = hash;
                     nouUser.save(function(err) {
                         if (err) return next(err);
-                        res.status(201).json({"missatge": "user auth"});
+                        res.status(201).json({"missatge": "Usuari autenticat"});
                     });
                 });
         }

@@ -13,29 +13,38 @@ router.get("/", function(req, res, next) {
 });
 
 router.post("/", function (req,res,next) {
-    console.log(req.body.body);
-    console.log("req.auth.username:"+req.auth);
-    var missatge = new Missatge({
-        username : req.auth.username,
-        body: req.body.body
-    });
-    missatge.save(function(err, missatge) {
-        if (err) { return next(err) }
-        res.status(201).json(missatge);
-    });
+    if (req.auth) {
+        var missatge = new Missatge({
+            username : req.auth.username,
+            body: req.body.body
+        });
+        missatge.save(function(err, missatge) {
+            if (err) { return next(err) }
+            res.status(201).json(missatge);
+        });
+    } else {
+        res.status(401).json({"missatge":"No autoritzat"});
+    }
 });
 router.delete('/:id',function(req,res,next) {
-    Missatge.remove({"_id":req.params.id},function(err) {
-        if (err) return next(err);
-        console.log(req.params);
-        res.status(202).json({"missatge":"missatge esborrat"});
-    });
+    if (req.auth) {
+        Missatge.remove({"_id":req.params.id},function(err) {
+            if (err) return next(err);
+            res.status(202).json({"missatge":"missatge esborrat"});
+        });
+    } else {
+        res.status(401).json({"missatge":"No autoritzat"});
+    }
 });
 
 router.put('/',function(req,res,next) {
-    Missatge.findByIdAndUpdate(req.body._id,req.body, function(err) {
-        if (err) return next(err);
-        res.status(201).json({"missatge": "Missatge modificat"});
-    });
+    if (req.auth) {
+        Missatge.findByIdAndUpdate(req.body._id,req.body, function(err) {
+            if (err) return next(err);
+            res.status(201).json({"missatge": "Missatge modificat"});
+        });
+    } else {
+        res.status(401).json({"missatge":"No autoritzat"});
+    }
 });
 module.exports = router;
