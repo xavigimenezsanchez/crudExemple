@@ -1,6 +1,5 @@
 angular.module('appLearn')
-    .controller('MissatgesController',function($scope,$route,$location,MissatgesService) {
-        //$scope.missatgeBody="holaaaa";
+    .controller('MissatgesController',function($scope,$location,MissatgesService) {
         MissatgesService.fetch()
         .success(function(missatges){
             $scope.missatges = missatges;
@@ -9,9 +8,8 @@ angular.module('appLearn')
       
         $scope.esborrarMissatge = function(missatge) {
             MissatgesService.delete(missatge._id).success(function() {
-                   // $location.path('/');
-                   $route.reload();
-                    console.log('hola');
+                   var pos = $scope.missatges.indexOf(missatge);
+                   $scope.missatges.splice(pos,1);
                 });
         };
         $scope.editarMissatge = function(missatge) {

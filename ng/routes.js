@@ -30,6 +30,9 @@ angular.module('appLearn')
                 controller: "RegistreController",
                 templateUrl: "registre.html",
                 autoritzat: false
+            })
+            .otherwise({
+                redirectTo: '/'
             });
             
             $locationProvider.html5Mode({
