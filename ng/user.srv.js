@@ -1,11 +1,10 @@
 angular.module('appLearn')
     .service('UserSvc', function($http) {
-        var svc = this;
-        svc.auth= false;
-        svc.getUser = function() {
+        this.auth= false;
+        this.getUser = function() {
             return $http.get('/api/users');
         };
-        svc.login = function (username, password,noLogin) {
+        this.login = function (username, password,noLogin) {
             return $http.post('/api/sessions', {
                 username: username,
                 password: password
@@ -14,16 +13,16 @@ angular.module('appLearn')
                 $http.defaults.headers.common['x-auth'] = data;
                 if (data) svc.auth = true;
             }).error(function(error,status){
-                noLogin(error, status);
+                noLogin(error, status);  //s'executa el callback
             });
         };
-        svc.registre = function(username,password){
+        this.registre = function(username,password){
             return $http.post('/api/users', {
                 username: username,
                 password: password
             });
         };
-        svc.logOut = function() {
+        this.logOut = function() {
             svc.auth = false;
             $http.defaults.headers.common['x-auth'] ="";
         };
