@@ -41,6 +41,13 @@ angular.module('appLearn')
                         });
     })
     .run(function($rootScope,UserSvc) {
+        /*
+            Cada vegada que canviem de pàgina se dispara el
+            event $routeChangeStart,
+            Si la pàgina que volem veure té la propietat 
+            "autoritzat": a true i no ho està llavors no 
+            farà el canvi
+        */
         $rootScope.$on('$routeChangeStart', function(event, next) {
            if (next)
                 if (!UserSvc.auth & next.autoritzat) 
